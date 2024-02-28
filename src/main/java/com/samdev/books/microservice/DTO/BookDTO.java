@@ -12,11 +12,11 @@ import java.util.List;
 public class BookDTO {
     private String title;
     private String authors;
-    private String ISBN;
+    private String isbn;
     private String publisher;
     private Date publicationDate;
     private String category;
-    private String LCCNumber;
+    private String lcc;
     private String language;
     private String format;
     private String edition;
@@ -40,11 +40,11 @@ public class BookDTO {
 
     public BookDTO(String title,
                    String authors,
-                   String ISBN,
+                   String isbn,
                    String publisher,
                    Date publicationDate,
                    String category,
-                   String LCCNumber,
+                   String lcc,
                    String language,
                    String format,
                    String edition,
@@ -58,11 +58,11 @@ public class BookDTO {
                    String seriesInformation) {
         this.title = title;
         this.authors = authors;
-        this.ISBN = ISBN;
+        this.isbn = isbn;
         this.publisher = publisher;
         this.publicationDate = publicationDate;
         this.category = category;
-        this.LCCNumber = LCCNumber;
+        this.lcc = lcc;
         this.language = language;
         this.format = format;
         this.edition = edition;
@@ -92,12 +92,12 @@ public class BookDTO {
         this.authors = authors;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getPublisher() {
@@ -124,12 +124,12 @@ public class BookDTO {
         this.category = category;
     }
 
-    public String getLCCNumber() {
-        return LCCNumber;
+    public String getLcc() {
+        return lcc;
     }
 
-    public void setLCCNumber(String LCCNumber) {
-        this.LCCNumber = LCCNumber;
+    public void setLcc(String lcc) {
+        this.lcc = lcc;
     }
 
     public String getLanguage() {

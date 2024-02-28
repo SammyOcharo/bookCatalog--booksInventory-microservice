@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/apps/api/v1/books/")
 public class BookController {
@@ -59,8 +61,24 @@ public class BookController {
         return new ResponseEntity<>(bookService.filterByCostBook(cost), HttpStatus.CREATED);
     }
     //filter books according to tags
+    @PostMapping("filter-by-tags/")
+    public ResponseEntity<ReqResponse> filterByTagsBook(@RequestBody ReqResponse reqResponse){
+
+        return new ResponseEntity<>(bookService.filterByTagsBook(reqResponse), HttpStatus.CREATED);
+    }
     //filter books that are available
-    //filter books that are already borrowed.
-    //filter books that the borrowing time has passed.
+    @PostMapping("filter-by-availability/")
+    public ResponseEntity<ReqResponse> filterByAvailableBook(@RequestBody ReqResponse reqResponse){
+
+        return new ResponseEntity<>(bookService.filterByAvailableBook(reqResponse), HttpStatus.CREATED);
+    }
+
+    //filter books by language
+    @PostMapping("filter-by-language/")
+    public ResponseEntity<ReqResponse> filterByLanguage(@RequestBody ReqResponse reqResponse){
+
+        return new ResponseEntity<>(bookService.filterByLanguage(reqResponse), HttpStatus.CREATED);
+    }
+
 
 }

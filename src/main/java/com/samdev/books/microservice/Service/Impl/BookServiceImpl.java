@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
     }
 
 
-    private Book mapBookDtoToEntity(Book book, BookDTO bookDTO) {
+    public Book mapBookDtoToEntity(Book book, BookDTO bookDTO) {
 
         book.setTitle(bookDTO.getTitle());
         book.setAuthors(bookDTO.getAuthors());
@@ -75,7 +75,7 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
-    private BookDTO mapBookEntitytoBookDTO(Book book, BookDTO bookDTO) {
+    public BookDTO mapBookEntitytoBookDTO(Book book, BookDTO bookDTO) {
 
         bookDTO.setTitle(book.getTitle());
         bookDTO.setAuthors(book.getAuthors());
@@ -160,7 +160,6 @@ public class BookServiceImpl implements BookService {
                         bookDTO.setPublicationDate(book.getPublicationDate());
                         bookDTO.setCategory(book.getCategory());
                         bookDTO.setLcc(book.getLcc());
-                        System.out.println(book.getIsbn());
                         bookDTO.setLanguage(book.getLanguage());
                         bookDTO.setFormat(book.getFormat());
                         bookDTO.setEdition(book.getEdition());

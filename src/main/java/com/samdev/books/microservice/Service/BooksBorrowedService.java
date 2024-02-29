@@ -4,4 +4,8 @@ import com.samdev.books.microservice.DTO.ReqResponse;
 
 public interface BooksBorrowedService {
     ReqResponse borrowBook(ReqResponse reqResponse);
+
+    ReqResponse returnBook(ReqResponse reqResponse);
+
+    ReqResponse overdueBooks();
 }

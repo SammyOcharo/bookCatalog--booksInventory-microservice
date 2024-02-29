@@ -15,15 +15,21 @@ public class ReqResponse {
     private Integer statusCode;
 
     private String responseMessage;
+    private String userId;
 
     public ReqResponse() {
     }
 
-    public ReqResponse(BookDTO bookDetails, List<BookDTO> bookDetailsList, Integer statusCode, String responseMessage) {
+    public ReqResponse(BookDTO bookDetails,
+                       List<BookDTO> bookDetailsList,
+                       Integer statusCode,
+                       String responseMessage,
+                       String userId) {
         this.bookDetails = bookDetails;
         this.bookDetailsList = bookDetailsList;
         this.statusCode = statusCode;
         this.responseMessage = responseMessage;
+        this.userId = userId;
     }
 
     public BookDTO getBookDetails() {
@@ -56,5 +62,13 @@ public class ReqResponse {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

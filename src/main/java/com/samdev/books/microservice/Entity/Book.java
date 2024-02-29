@@ -12,11 +12,11 @@ public class Book {
     private Long id;
     private String title;
     private String authors;
-    private String ISBN;
+    private String isbn;
     private String publisher;
     private Date publicationDate;
     private String category;
-    private String LCCNumber;
+    private String lcc;
     private String language;
     private String format;
     private String edition;
@@ -39,15 +39,33 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, String authors, String ISBN, String publisher, Date publicationDate, String category, String LCCNumber, String language, String format, String edition, String pages, String condition, String shelfLocation, Boolean availability, Double cost, List<String> tags, String summary, String seriesInformation) {
+    public Book(Long id,
+                String title,
+                String authors,
+                String isbn,
+                String publisher,
+                Date publicationDate,
+                String category,
+                String lcc,
+                String language,
+                String format,
+                String edition,
+                String pages,
+                String condition,
+                String shelfLocation,
+                Boolean availability,
+                Double cost,
+                List<String> tags,
+                String summary,
+                String seriesInformation) {
         this.id = id;
         this.title = title;
         this.authors = authors;
-        this.ISBN = ISBN;
+        this.isbn = isbn;
         this.publisher = publisher;
         this.publicationDate = publicationDate;
         this.category = category;
-        this.LCCNumber = LCCNumber;
+        this.lcc = lcc;
         this.language = language;
         this.format = format;
         this.edition = edition;
@@ -69,140 +87,140 @@ public class Book {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getAuthors() {
         return authors;
     }
 
-    public void setAuthors(String authors) {
-        this.authors = authors;
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
     public Date getPublicationDate() {
         return publicationDate;
-    }
-
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getLCCNumber() {
-        return LCCNumber;
-    }
-
-    public void setLCCNumber(String LCCNumber) {
-        this.LCCNumber = LCCNumber;
+    public String getLcc() {
+        return lcc;
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getFormat() {
         return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
     }
 
     public String getEdition() {
         return edition;
     }
 
-    public void setEdition(String edition) {
-        this.edition = edition;
-    }
-
     public String getPages() {
         return pages;
-    }
-
-    public void setPages(String pages) {
-        this.pages = pages;
     }
 
     public String getCondition() {
         return condition;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
     public String getShelfLocation() {
         return shelfLocation;
-    }
-
-    public void setShelfLocation(String shelfLocation) {
-        this.shelfLocation = shelfLocation;
     }
 
     public Boolean getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Boolean availability) {
-        this.availability = availability;
-    }
-
     public Double getCost() {
         return cost;
-    }
-
-    public void setCost(Double cost) {
-        this.cost = cost;
     }
 
     public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
     public String getSummary() {
         return summary;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     public String getSeriesInformation() {
         return seriesInformation;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setLcc(String lcc) {
+        this.lcc = lcc;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public void setPages(String pages) {
+        this.pages = pages;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public void setShelfLocation(String shelfLocation) {
+        this.shelfLocation = shelfLocation;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public void setSeriesInformation(String seriesInformation) {

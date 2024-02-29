@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,13 @@ public class BookServiceImpl implements BookService {
 
         ReqResponse reqResponse1 = new ReqResponse();
         try{
-            System.out.println(bookDTO.getIsbn());
-            System.out.println(bookDTO.getLcc());
+            if(bookRepository.existsByIsbn(bookDTO.getIsbn())){
+                reqResponse1.setBookDetails(null);
+                reqResponse1.setStatusCode(400);
+                reqResponse1.setResponseMessage("Book already exists in the catalog");
+
+                return reqResponse1;
+            }
             Book book = new Book();
             Book mappedbook = mapBookDtoToEntity(book, bookDTO);
             bookRepository.save(mappedbook);
@@ -50,11 +56,11 @@ public class BookServiceImpl implements BookService {
 
         book.setTitle(bookDTO.getTitle());
         book.setAuthors(bookDTO.getAuthors());
-        book.setISBN(bookDTO.getIsbn());
+        book.setIsbn(bookDTO.getIsbn());
         book.setPublisher(bookDTO.getPublisher());
         book.setPublicationDate(bookDTO.getPublicationDate());
         book.setCategory(bookDTO.getCategory());
-        book.setLCCNumber(bookDTO.getLcc());
+        book.setLcc(bookDTO.getLcc());
         book.setLanguage(bookDTO.getLanguage());
         book.setFormat(bookDTO.getFormat());
         book.setEdition(bookDTO.getEdition());
@@ -73,11 +79,11 @@ public class BookServiceImpl implements BookService {
 
         bookDTO.setTitle(book.getTitle());
         bookDTO.setAuthors(book.getAuthors());
-        bookDTO.setIsbn(book.getISBN());
+        bookDTO.setIsbn(book.getIsbn());
         bookDTO.setPublisher(book.getPublisher());
         bookDTO.setPublicationDate(book.getPublicationDate());
         bookDTO.setCategory(book.getCategory());
-        bookDTO.setLcc(book.getLCCNumber());
+        bookDTO.setLcc(book.getLcc());
         bookDTO.setLanguage(book.getLanguage());
         bookDTO.setFormat(book.getFormat());
         bookDTO.setEdition(book.getEdition());
@@ -107,11 +113,11 @@ public class BookServiceImpl implements BookService {
 
             bookDTO.setTitle(book.getTitle());
             bookDTO.setAuthors(book.getAuthors());
-            bookDTO.setIsbn(book.getISBN());
+            bookDTO.setIsbn(book.getIsbn());
             bookDTO.setPublisher(book.getPublisher());
             bookDTO.setPublicationDate(book.getPublicationDate());
             bookDTO.setCategory(book.getCategory());
-            bookDTO.setLcc(book.getLCCNumber());
+            bookDTO.setLcc(book.getLcc());
             bookDTO.setLanguage(book.getLanguage());
             bookDTO.setFormat(book.getFormat());
             bookDTO.setEdition(book.getEdition());
@@ -139,8 +145,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public ReqResponse getAllBook() {
 
+        ReqResponse reqResponse = null;
         try {
-            ReqResponse reqResponse = new ReqResponse();
+            reqResponse = new ReqResponse();
             List<Book> allBooks = bookRepository.findAll();
             List<BookDTO> allBooksDTO = allBooks
                     .stream()
@@ -148,11 +155,12 @@ public class BookServiceImpl implements BookService {
                         BookDTO bookDTO = new BookDTO();
                         bookDTO.setTitle(book.getTitle());
                         bookDTO.setAuthors(book.getAuthors());
-                        bookDTO.setIsbn(book.getISBN());
+                        bookDTO.setIsbn(book.getIsbn());
                         bookDTO.setPublisher(book.getPublisher());
                         bookDTO.setPublicationDate(book.getPublicationDate());
                         bookDTO.setCategory(book.getCategory());
-                        bookDTO.setLcc(book.getLCCNumber());
+                        bookDTO.setLcc(book.getLcc());
+                        System.out.println(book.getIsbn());
                         bookDTO.setLanguage(book.getLanguage());
                         bookDTO.setFormat(book.getFormat());
                         bookDTO.setEdition(book.getEdition());
@@ -174,7 +182,10 @@ public class BookServiceImpl implements BookService {
 
             return reqResponse;
         } catch (Exception e) {
-           throw e;
+            reqResponse.setResponseMessage("An error has occurred");
+            reqResponse.setStatusCode(500);
+
+            return reqResponse;
         }
     }
 

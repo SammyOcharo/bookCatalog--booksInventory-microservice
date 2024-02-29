@@ -17,19 +17,25 @@ public class ReqResponse {
     private String responseMessage;
     private String userId;
 
+    private BookBorrowedDTO BookBorrowedDTO;
+
+    private List<BookBorrowedDTO> BookBorrowedDTOList;
+
     public ReqResponse() {
     }
 
-    public ReqResponse(BookDTO bookDetails,
-                       List<BookDTO> bookDetailsList,
+    public ReqResponse(List<BookDTO> bookDetailsList,
                        Integer statusCode,
                        String responseMessage,
-                       String userId) {
-        this.bookDetails = bookDetails;
+                       String userId,
+                       BookBorrowedDTO bookBorrowedDTO,
+                       List<BookBorrowedDTO> bookBorrowedDTOList) {
         this.bookDetailsList = bookDetailsList;
         this.statusCode = statusCode;
         this.responseMessage = responseMessage;
         this.userId = userId;
+        BookBorrowedDTO = bookBorrowedDTO;
+        BookBorrowedDTOList = bookBorrowedDTOList;
     }
 
     public BookDTO getBookDetails() {
@@ -70,5 +76,21 @@ public class ReqResponse {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public com.samdev.books.microservice.DTO.BookBorrowedDTO getBookBorrowedDTO() {
+        return BookBorrowedDTO;
+    }
+
+    public void setBookBorrowedDTO(com.samdev.books.microservice.DTO.BookBorrowedDTO bookBorrowedDTO) {
+        BookBorrowedDTO = bookBorrowedDTO;
+    }
+
+    public List<com.samdev.books.microservice.DTO.BookBorrowedDTO> getBookBorrowedDTOList() {
+        return BookBorrowedDTOList;
+    }
+
+    public void setBookBorrowedDTOList(List<com.samdev.books.microservice.DTO.BookBorrowedDTO> bookBorrowedDTOList) {
+        BookBorrowedDTOList = bookBorrowedDTOList;
     }
 }

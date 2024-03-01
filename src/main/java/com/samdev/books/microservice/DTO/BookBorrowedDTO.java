@@ -15,27 +15,32 @@ public class BookBorrowedDTO {
     private LocalDate returnDate;
     private boolean isReturned;
     private double fineAmount;
+    private String isbn;
     private Book book;
 
     public BookBorrowedDTO() {
     }
 
-    public BookBorrowedDTO(String userId,
-                           LocalDate borrowDate,
-                           LocalDate returnDate,
-                           boolean isReturned,
-                           double fineAmount,
-                           Book book) {
+    public BookBorrowedDTO(String userId, LocalDate borrowDate, LocalDate returnDate, boolean isReturned, double fineAmount, String isbn, Book book) {
         this.userId = userId;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.isReturned = isReturned;
         this.fineAmount = fineAmount;
+        this.isbn = isbn;
         this.book = book;
     }
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public void setUserId(String userId) {

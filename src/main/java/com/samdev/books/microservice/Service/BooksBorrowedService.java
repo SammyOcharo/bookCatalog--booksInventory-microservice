@@ -10,4 +10,6 @@ public interface BooksBorrowedService {
     ReqResponse overdueBooks();
 
     ReqResponse extendBookBorrowTime(ReqResponse reqResponse);
+
+    ReqResponse userBorrowHistory(String userId);
 }

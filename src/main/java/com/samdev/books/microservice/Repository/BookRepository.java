@@ -11,4 +11,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findByTitleAndIsbn(String title, String isbn);
     boolean existsByIsbn(String isbn);
+
+    Optional<Book> findByAvailability(boolean availability);
 }

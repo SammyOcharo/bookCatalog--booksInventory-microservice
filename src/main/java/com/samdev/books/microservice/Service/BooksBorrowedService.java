@@ -8,4 +8,6 @@ public interface BooksBorrowedService {
     ReqResponse returnBook(ReqResponse reqResponse);
 
     ReqResponse overdueBooks();
+
+    ReqResponse extendBookBorrowTime(ReqResponse reqResponse);
 }

@@ -15,8 +15,10 @@ public class BookBorrowed {
     private LocalDate borrowDate;
     private LocalDate returnDate;
     private boolean isReturned;
+
+    private String isbn;
     private double fineAmount;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id")
     private Book book;
 
@@ -24,14 +26,23 @@ public class BookBorrowed {
     }
 
 
-    public BookBorrowed(Long id, String userId, LocalDate borrowDate, LocalDate returnDate, boolean isReturned, double fineAmount, Book book) {
+    public BookBorrowed(Long id, String userId, LocalDate borrowDate, LocalDate returnDate, boolean isReturned, String isbn, double fineAmount, Book book) {
         this.id = id;
         this.userId = userId;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.isReturned = isReturned;
+        this.isbn = isbn;
         this.fineAmount = fineAmount;
         this.book = book;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public Long getId() {

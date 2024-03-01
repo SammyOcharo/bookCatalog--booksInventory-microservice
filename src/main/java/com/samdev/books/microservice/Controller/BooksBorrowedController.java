@@ -35,7 +35,13 @@ public class BooksBorrowedController {
 
         return new ResponseEntity<>(booksBorrowedService.overdueBooks(), HttpStatus.OK);
     }
+
     //extend time for borrowed
+    @PostMapping("extend-borrow-time/")
+    public ResponseEntity<ReqResponse> extendBookBorrowTime(@RequestBody ReqResponse reqResponse){
+
+        return new ResponseEntity<>(booksBorrowedService.extendBookBorrowTime(reqResponse), HttpStatus.OK);
+    }
     // history for a user's borrowing
 
 

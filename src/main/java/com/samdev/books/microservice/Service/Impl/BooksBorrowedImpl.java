@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BooksBorrowedImpl implements BooksBorrowedService {
@@ -211,6 +212,36 @@ public class BooksBorrowedImpl implements BooksBorrowedService {
             response.setStatusCode(404);
             return response;
         }
+    }
+
+    @Override
+    public ReqResponse userBorrowHistory(String userId) {
+        ReqResponse response = new ReqResponse();
+        if (userId.isEmpty()){
+            response.setResponseMessage("null user ID passed");
+            response.setBookDetails(null);
+            response.setStatusCode(400);
+            return response;
+        }
+        try {
+            BookBorrowedDTO bookBorrowedDTO = new BookBorrowedDTO();
+            List<BookBorrowedDTO> bookBorrowedDTO1 = booksBorrowedRepository
+                    .findByUserId(userId)
+                    .stream()
+                    .map(bookBorrowed1 -> mapBookBorrowEntityToBookDTO( bookBorrowed1, bookBorrowedDTO))
+                    .toList();
+
+            response.setBookBorrowedDTOList(bookBorrowedDTO1);
+            response.setStatusCode(200);
+            response.setResponseMessage("User borrowing history");
+
+            return  response;
+        } catch (Exception e){
+            response.setResponseMessage("An error has occurred" + e.getMessage());
+            response.setStatusCode(200);
+            return response;
+        }
+
     }
 
     public BookBorrowedDTO mapBookBorrowEntityToBookDTO(BookBorrowed bookBorrowed, BookBorrowedDTO bookBorrowedDTO) {

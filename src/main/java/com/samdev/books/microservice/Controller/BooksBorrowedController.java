@@ -43,6 +43,12 @@ public class BooksBorrowedController {
         return new ResponseEntity<>(booksBorrowedService.extendBookBorrowTime(reqResponse), HttpStatus.OK);
     }
     // history for a user's borrowing
+    @GetMapping("user-borrowing-history/{user_id}/")
+    public ResponseEntity<ReqResponse> userBorrowHistory(@PathVariable String user_id){
+
+        return new ResponseEntity<>(booksBorrowedService.userBorrowHistory(user_id), HttpStatus.OK);
+    }
+
 
 
 }

@@ -87,6 +87,7 @@ public class BooksBorrowedImpl implements BooksBorrowedService {
             bookBorrowed.setReturned(Boolean.FALSE);
             bookBorrowed.setFineAmount(0);
             bookBorrowed.setBook(requestedBook);
+            bookBorrowed.setIsbn(reqResponse.getBookDetails().getIsbn());
             requestedBook.setAvailability(Boolean.FALSE);
             bookRepository.save(requestedBook);
 
@@ -110,7 +111,8 @@ public class BooksBorrowedImpl implements BooksBorrowedService {
         ReqResponse response = new ReqResponse();
 
         try{
-            Book requestedBook = bookRepository.findByTitleAndIsbn(reqResponse.getBookDetails().getTitle(), reqResponse.getBookDetails().getIsbn())
+            Book requestedBook = bookRepository
+                    .findByTitleAndIsbn(reqResponse.getBookDetails().getTitle(), reqResponse.getBookDetails().getIsbn())
                     .orElseThrow(() -> new NoSuchElementException("Book  does not exist"));
 
             if(requestedBook.getAvailability() == Boolean.TRUE){
@@ -120,16 +122,16 @@ public class BooksBorrowedImpl implements BooksBorrowedService {
                 return response;
             }
 
-            BookBorrowed bookBorrowed = booksBorrowedRepository.findByBook(requestedBook)
+
+            BookBorrowed bookBorrowed = booksBorrowedRepository.findByIsbnAndIsReturned(requestedBook.getIsbn(), false)
                     .orElseThrow(()-> new BookNotFoundException("Book not found in borrowed catalog"));
 
 
             requestedBook.setAvailability(Boolean.TRUE);
             bookBorrowed.setReturned(Boolean.TRUE);
-            bookBorrowed.setReturnDate(LocalDate.now());
 
             long daysDifference = ChronoUnit.DAYS.between(bookBorrowed.getBorrowDate(), bookBorrowed.getReturnDate());
-            int fineAmount = (daysDifference > 10) ? 50 : 0;
+            int fineAmount = (daysDifference > 40) ? 50 : 0;
 
             bookBorrowed.setFineAmount(fineAmount);
 
@@ -152,12 +154,16 @@ public class BooksBorrowedImpl implements BooksBorrowedService {
         ReqResponse response = new ReqResponse();
         BookBorrowedDTO bookBorrowedDTO = new BookBorrowedDTO();
 
+        System.out.println(LocalDate.now());
+
         try{
             List<BookBorrowedDTO> bookBorrowed1 = booksBorrowedRepository.findAll()
                     .stream()
                     .filter(bookBorrowed -> LocalDate.now().isAfter(bookBorrowed.getBorrowDate().plusDays(10)))
                     .map(bookBorrowed -> mapBookBorrowEntityToBookDTO(bookBorrowed, bookBorrowedDTO))
                     .toList();
+
+            System.out.println(bookBorrowed1);
 
             response.setBookBorrowedDTOList(bookBorrowed1);
             response.setResponseMessage("All overdue books");
@@ -167,6 +173,42 @@ public class BooksBorrowedImpl implements BooksBorrowedService {
             response.setResponseMessage("An error occurred");
             response.setBookDetails(null);
             response.setStatusCode(500);
+            return response;
+        }
+    }
+
+    @Override
+    public ReqResponse extendBookBorrowTime(ReqResponse reqResponse) {
+
+        ReqResponse response = new ReqResponse();
+
+        try {
+
+            Book requestedBook = bookRepository.findByTitleAndIsbn(reqResponse.getBookDetails().getTitle(), reqResponse.getBookDetails().getIsbn())
+                    .orElseThrow(() -> new NoSuchElementException("Book  does not exist"));
+
+            if(requestedBook.getAvailability() == Boolean.TRUE){
+                response.setResponseMessage("Book has already been returned");
+                response.setBookDetails(null);
+                response.setStatusCode(400);
+                return response;
+            }
+
+            BookBorrowed bookBorrowed = booksBorrowedRepository.findByIsbnAndIsReturned(requestedBook.getIsbn(), false)
+                    .orElseThrow(()-> new BookNotFoundException("Book not found in borrowed catalog"));
+
+            bookBorrowed.setReturnDate(bookBorrowed.getReturnDate().plusDays(10));
+            booksBorrowedRepository.save(bookBorrowed);
+
+
+            response.setResponseMessage("Book "+ bookBorrowed.getBook().getTitle() + " return date has been extended by "+ 10 + " days.");
+            response.setStatusCode(200);
+            return response;
+
+        } catch (BookNotFoundException e){
+            response.setResponseMessage(e.getMessage());
+            response.setBookDetails(null);
+            response.setStatusCode(404);
             return response;
         }
     }
